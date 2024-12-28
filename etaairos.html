@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navbar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Style untuk popup */
+.popup {
+    display: none; /* Awalnya popup tersembunyi */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.popup h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.popup p {
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff7f50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.cta-btn a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.cta-btn:hover {
+    background-color: #ff4500;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 0.8rem 1.5rem;
+      color: white;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar ul li {
+      display: inline;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #00bcd4;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 0.3rem;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    @media (max-width: 768px) {
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+        background-color: #333;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    .header {
+      background: linear-gradient(to right, #ededed, #000000);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      transition: background 0.5s ease;
+    }
+
+    .header:hover {
+      background: linear-gradient(to right, #000000, #f9f3ff);
+    }
+
+  .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      animation: text-glow 1.5s ease-in-out infinite alternate;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .header .btn {
+      display: inline-block;
+      background-color: #90a2a5;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .header .btn:hover {
+      background-color: #060606;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card .content {
+      padding: 1rem;
+    }
+
+    .card .content h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .card .content p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+
+
+     .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem 1.5rem;
+      margin-top: auto;
+    }
+
+    .footer p {
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: #00bcd4;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+      @keyframes text-glow {
+      0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #3d3b3d, 0 0 30px #878787, 0 0 40px #d18bd1;
+      }
+      100% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #2e292e, 0 0 30px #78743d, 0 0 50px #161616, 0 0 70px #ffffff;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+    <div class="popup" id="promoPopup">
+        <div class="popup-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <h2>Promo Spesial!</h2>
+            <p>Dapatkan diskon 20% untuk pembelian 3 produk</p>
+            <button class="cta-btn"> <a href="etaairos2.html">belanja sekarang</a></button>
+        </div>
+    </div>
+
+  <nav class="navbar">
+    <div class="logo">etaairos</div>
+    <ul>
+      <li><a href="etaairos2.html">produk</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>etaairos</h1>
+    <p>Your journey to a modern web experience starts here.</p>
+    <a href="#" class="btn">Get Started</a>
+  </header>
+
+  <section class="cards">
+    <div class="card">
+      <img src="https://files.oaiusercontent.com/file-CbyUw6QpJRWDXed6n7TwJp?se=2024-12-28T05%3A23%3A55Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D266414c3-d68a-4acd-be9c-cf4ea4b5495f.webp&sig=4DUXojka1DWC3l0p22NdaXWuTTa1jdtdj/SNssJyB/g%3D" alt="Card Image">
+      <div class="content">
+        <h3>parfume</h3>
+        <p>This is a description of the card content. It provides some basic information about the item.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://files.oaiusercontent.com/file-EaWQtgMw54WManXjedmGC4?se=2024-12-28T05%3A33%3A50Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D4e9b0709-3014-4b2f-a8a6-d203587a005d.webp&sig=mfeeDrqUMuiuJkMcCpZN6NTnU6kpoqDr8R%2BPOOg5sww%3D" alt="Card Image">
+      <div class="content">
+        <h3>about us</h3>
+        <p>This is a description of the card content. It provides some basic information about the item.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://files.oaiusercontent.com/file-A2SmAKFwQqCcYrcJtCgGn1?se=2024-12-28T05%3A36%3A43Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D1ed63d64-ba13-4199-b98d-3e640fa5aa16.webp&sig=jJfRlnTblxfA84Fi37te4Sb2jaqCSi7Pl7aIZTov5xQ%3D" alt="Card Image">
+      <div class="content">
+        <h3>contact</h3>
+        <p>This is a description of the card content. It provides some basic information about the item.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2024 MyWebsite. All rights reserved. | <a href="#">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.querySelector('.navbar ul');
+      menu.classList.toggle('active');
+    }
+
+    // Mendapatkan elemen popup dan tombol close
+const popup = document.getElementById('promoPopup');
+const closeBtn = document.getElementById('closeBtn');
+
+// Menampilkan popup setelah 2 detik
+window.onload = function() {
+    setTimeout(() => {
+        popup.style.display = 'flex';
+    }, 2000); // Popup muncul setelah 2 detik
+};
+
+// Menutup popup ketika tombol close diklik
+closeBtn.onclick = function() {
+    popup.style.display = 'none';
+};
+
+// Menutup popup jika area luar popup diklik
+window.onclick = function(event) {
+    if (event.target === popup) {
+        popup.style.display = 'none';
+    }
+};
+
+
+  </script>
+</body>
+</html>
